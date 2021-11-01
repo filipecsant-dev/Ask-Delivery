@@ -22,8 +22,8 @@ namespace api.Controllers
 
         public AuthenticationController(IConfiguration configuration, DataContext context)
         {
-            _configuration = configuration;
-            dc = context;
+            this._configuration = configuration;
+            this.dc = context;
         }
 
         [HttpPost]

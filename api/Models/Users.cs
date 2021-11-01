@@ -6,8 +6,7 @@ namespace api.Models
     {
         public Users()
         {
-            if(Role == null)
-                Role = "Common";
+            if(Role == null) Role = "Common";
         }
 
         [Key]
@@ -15,19 +14,19 @@ namespace api.Models
 
         [Required(ErrorMessage = "Obrigatório o cadastro do email.")]
         [EmailAddress(ErrorMessage = "Informe um email válido.")]
+        [MaxLength(150, ErrorMessage = "Informe um email válido.")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Obrigatório o cadastro da senha.")]
-        [MinLength(5, ErrorMessage = "Necessário no minimo 5 caracteres.")]
-        [MaxLength(16, ErrorMessage = "É permitido no máximo 16 caracteres.")]
+        [MaxLength(250, ErrorMessage = "Escolha uma senha mais curta.")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Obrigatório o cadastro do nome.")]
-        [MinLength(5, ErrorMessage = "Necessário no minimo 5 caracteres.")]
-        [MaxLength(30, ErrorMessage = "É permitido no máximo 30 caracteres.")]
+        [MinLength(5, ErrorMessage = "Nome muito curto.")]
+        [MaxLength(100, ErrorMessage = "Seu nome esta muito grande! Abrevie.")]
         public string Name { get; set; }
 
-        [MinLength(8, ErrorMessage = "Informe um telefone válido.")]
+        [MinLength(10, ErrorMessage = "Informe um telefone válido.")]
         [MaxLength(10, ErrorMessage = "Informe um telefone válido.")]
         public string Telephone { get; set; }
 
