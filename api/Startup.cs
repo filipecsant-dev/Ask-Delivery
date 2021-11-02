@@ -1,6 +1,7 @@
+using System;
 using System.Text;
 using System.Threading.Tasks;
-using Data;
+using api.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -64,11 +65,13 @@ namespace api
                 options.Events = new JwtBearerEvents
                 {
                     OnAuthenticationFailed = context =>
-                    {   
+                    {
+                        Console.WriteLine("Token invalido");
                         return Task.CompletedTask;
                     },
                     OnTokenValidated = context =>
                     {
+                        Console.WriteLine("Token valido");
                         return Task.CompletedTask;
                     }
                 };
