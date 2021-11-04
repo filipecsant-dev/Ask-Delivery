@@ -32,14 +32,24 @@ namespace api.Controllers
             if(u == null) return null;
             return u.Email;
         }
-        
 
-        [HttpGet("{id}")]
+        private bool verify(long id)
+        {
+            var u = dc.users
+                        .Where(x => x.Id == id)
+                        .AsNoTracking()
+                        .FirstOrDefault();
+            if(u == null) return false;
+            else return true;
+        }
+
+        [HttpGet("{id:int}")]
         public ActionResult Get(long id)
         {
             if(User.Identity.Name != id.ToString()) return BadRequest(new {message = "Você não tem permissão para isto!"});
 
             Users u = dc.users.Find(id);
+            if(u == null) return BadRequest(new {message = "Nenhum usuário encontrado."});
             return Ok(u);
         }
 
@@ -62,9 +72,10 @@ namespace api.Controllers
             
         }
         
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<ActionResult> Update(long id, [FromBody] Users u)
         {
+            if(!verify(id)) return BadRequest(new {message = "Nenhum usuário encontrado."});
             //Libera Owner e Master para Put
             if(!User.IsInRole("Owner") && !User.IsInRole("Master"))
             {
@@ -89,7 +100,7 @@ namespace api.Controllers
 
             dc.Entry(u).State = EntityState.Modified;
             await dc.SaveChangesAsync();
-            return NoContent();
+            return Ok();
         }
     }
 }

@@ -10,5 +10,6 @@ namespace api.Data
 
         
         public DbSet<Users> users { get; set; }
+        public DbSet<Request> request { get; set; }
     }
 }
