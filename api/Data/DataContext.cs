@@ -6,10 +6,12 @@ namespace api.Data
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
-        {  }
+        {   }
 
         
         public DbSet<Users> users { get; set; }
         public DbSet<Request> request { get; set; }
+        public DbSet<RequestList> requestlist { get; set; }
+
     }
 }

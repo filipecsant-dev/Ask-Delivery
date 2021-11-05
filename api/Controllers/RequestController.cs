@@ -1,3 +1,4 @@
+using System.Security.AccessControl;
 using System;
 using System.Net;
 using System.Collections.Generic;
@@ -53,8 +54,13 @@ namespace api.Controllers
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Request>>> GetAll()
-        {
-            return await dc.request.ToListAsync(); 
+        { 
+            var request = await dc.request
+                            .AsNoTracking()
+                            .Include(x => x.RequestList)
+                            .ToListAsync();
+                            
+            return Ok(request);
         }
 
         [HttpPut("{id:int}")]

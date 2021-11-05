@@ -8,8 +8,8 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211104124837_AddRequest")]
-    partial class AddRequest
+    [Migration("20211105134849_inicial")]
+    partial class inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,6 +53,33 @@ namespace api.Migrations
                     b.ToTable("request");
                 });
 
+            modelBuilder.Entity("api.Models.RequestList", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Product")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<long>("RequestId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Type")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<float>("Value")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestId");
+
+                    b.ToTable("requestlist");
+                });
+
             modelBuilder.Entity("api.Models.Users", b =>
                 {
                     b.Property<long>("Id")
@@ -89,6 +116,22 @@ namespace api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("users");
+                });
+
+            modelBuilder.Entity("api.Models.RequestList", b =>
+                {
+                    b.HasOne("api.Models.Request", "Request")
+                        .WithMany("RequestList")
+                        .HasForeignKey("RequestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Request");
+                });
+
+            modelBuilder.Entity("api.Models.Request", b =>
+                {
+                    b.Navigation("RequestList");
                 });
 #pragma warning restore 612, 618
         }
