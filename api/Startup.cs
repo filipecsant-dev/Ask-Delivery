@@ -77,6 +77,7 @@ namespace api
                 };
             });
 
+            //Package: Microsoft.AspNetCore.Mvc.NewtonsoftJson
             //Importante para funcionamento de Json Collection - Coleção de Json
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
