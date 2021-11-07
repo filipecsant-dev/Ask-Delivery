@@ -12,6 +12,7 @@ namespace api.Data
         public DbSet<Users> users { get; set; }
         public DbSet<Request> request { get; set; }
         public DbSet<RequestList> requestlist { get; set; }
+        public DbSet<Menu> menu { get; set; }
 
     }
 }
