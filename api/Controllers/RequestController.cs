@@ -44,7 +44,7 @@ namespace api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult Get(long id)
+        public ActionResult<Request> Get(long id)
         {
             Request request = dc.request
                             .Where(x => x.Id == id)

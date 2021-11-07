@@ -45,7 +45,7 @@ namespace api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult Get(long id)
+        public ActionResult<Users> Get(long id)
         {
             if(User.Identity.Name != id.ToString()) return BadRequest(new {message = "Você não tem permissão para isto!"});
 

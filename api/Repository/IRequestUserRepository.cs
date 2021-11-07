@@ -7,6 +7,6 @@ namespace api.Repository
 {
     public interface IRequestUserRepository
     {
-         ActionResult<IEnumerable<RequestUser>> Get(long id);
+         ActionResult<RequestUser> Get(long id);
     }
 }

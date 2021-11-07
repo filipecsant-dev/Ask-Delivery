@@ -22,7 +22,7 @@ namespace api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<IEnumerable<RequestUser>> Get(long id)
+        public ActionResult<RequestUser> Get(long id)
         {
 
             if(User.Identity.Name != id.ToString()) return BadRequest(new {message = "Você não tem permissão para isto!"});
