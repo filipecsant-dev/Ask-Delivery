@@ -11,9 +11,9 @@ namespace api.Repository
 
         Task<ActionResult> Create([FromBody] Menu m);
 
-        Task<ActionResult> Update([FromBody] Menu m, long id);
+        Task<ActionResult> Update([FromBody] Menu m, int id);
 
-        Task<ActionResult> Delete(long id);
+        Task<ActionResult> Delete(int id);
 
 
     }

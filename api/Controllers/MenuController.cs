@@ -13,7 +13,7 @@ namespace api.Controllers
 {
     [Route("[Controller]")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    //[Authorize(Roles = "Employee, Owner")]
+    [Authorize(Roles = "Employee, Owner")]
     public class MenuController : ControllerBase, IMenuRepository
     {
         private readonly DataContext dc;
@@ -23,7 +23,7 @@ namespace api.Controllers
             dc = context;
         }
 
-        private Menu filter(long id)
+        private Menu filter(int id)
         {
             Menu m = dc.menu.Find(id);
             return m;
@@ -41,7 +41,7 @@ namespace api.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete(long id)
+        public async Task<ActionResult> Delete(int id)
         {
             Menu m = filter(id);
             if(m == null) return BadRequest(new {message = "Nenhum produto encontrado."});
@@ -64,7 +64,7 @@ namespace api.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> Update([FromBody] Menu m, long id)
+        public async Task<ActionResult> Update([FromBody] Menu m, int id)
         {
             Menu v = filter(id);
             if(v == null) return BadRequest(new {message = "Nenhum produto encontrado."}); 
