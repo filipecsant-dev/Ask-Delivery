@@ -22,15 +22,16 @@ namespace api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
+                    b.Property<string>("Adress")
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
                     b.Property<string>("Coupon")
                         .HasMaxLength(25)
                         .HasColumnType("varchar(25)");
 
                     b.Property<float>("Discount")
                         .HasColumnType("float");
-
-                    b.Property<long>("IdUser")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("MethodDelivery")
                         .HasMaxLength(15)
@@ -40,13 +41,26 @@ namespace api.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("varchar(30)");
 
+                    b.Property<string>("Name")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
                     b.Property<float>("Subtotal")
                         .HasColumnType("float");
+
+                    b.Property<string>("Telephone")
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)");
 
                     b.Property<float>("Total")
                         .HasColumnType("float");
 
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("request");
                 });
@@ -108,12 +122,23 @@ namespace api.Migrations
                         .HasColumnType("varchar(10)");
 
                     b.Property<string>("Telephone")
-                        .HasMaxLength(10)
-                        .HasColumnType("varchar(10)");
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)");
 
                     b.HasKey("Id");
 
                     b.ToTable("users");
+                });
+
+            modelBuilder.Entity("api.Models.Request", b =>
+                {
+                    b.HasOne("api.Models.Users", "Users")
+                        .WithMany("Request")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("api.Models.RequestList", b =>
@@ -130,6 +155,11 @@ namespace api.Migrations
             modelBuilder.Entity("api.Models.Request", b =>
                 {
                     b.Navigation("RequestList");
+                });
+
+            modelBuilder.Entity("api.Models.Users", b =>
+                {
+                    b.Navigation("Request");
                 });
 #pragma warning restore 612, 618
         }

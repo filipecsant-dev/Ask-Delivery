@@ -46,10 +46,15 @@ namespace api.Controllers
         [HttpGet("{id:int}")]
         public ActionResult Get(long id)
         {
-            Request r = dc.request.Find(id);
-            if(r == null) return BadRequest(new {message = "Nenhum pedido encontrado!"});
+            Request request = dc.request
+                            .Where(x => x.Id == id)
+                            .AsNoTracking()
+                            .Include(x => x.RequestList)
+                            .FirstOrDefault();
 
-            return Ok(r);
+            if(request == null) return BadRequest(new {message = "Nenhum pedido encontrado!"});
+
+            return Ok(request);
         }
 
         [HttpGet]

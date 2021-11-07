@@ -14,13 +14,14 @@ namespace api.Models
 
         [Key]
         public long Id { get; set; }
+        [ForeignKey("Request")]
+        public long RequestId { get; set; }
+        public virtual Request Request { get; set; }
         [MaxLength(100)]
         public string Product { get; set; }
         [MaxLength(50)]
         public string Type { get; set; }
         public float Value { get; set; }
-        [ForeignKey("Request")]
-        public long RequestId { get; set; }
-        public virtual Request Request { get; set; }
+        
     }
 }

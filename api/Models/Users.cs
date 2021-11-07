@@ -1,4 +1,8 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace api.Models
 {
@@ -26,8 +30,8 @@ namespace api.Models
         [MaxLength(100, ErrorMessage = "Seu nome esta muito grande! Abrevie.")]
         public string Name { get; set; }
 
-        [MinLength(10, ErrorMessage = "Informe um telefone válido.")]
-        [MaxLength(10, ErrorMessage = "Informe um telefone válido.")]
+        [MinLength(15, ErrorMessage = "Informe um telefone válido.")]
+        [MaxLength(15, ErrorMessage = "Informe um telefone válido.")]
         public string Telephone { get; set; }
 
         [MaxLength(150)]
@@ -35,5 +39,8 @@ namespace api.Models
         
         [MaxLength(10)]
         public string Role { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Request> Request { get; set; }
     }
 }
