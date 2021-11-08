@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
 using api.Models;
@@ -28,9 +29,26 @@ namespace api.Controllers
             return n;
         }
 
+        private bool verify(string district)
+        {
+            var d = dc.neighbohoods
+                      .Where(x => x.District == district)
+                      .AsNoTracking()
+                      .FirstOrDefault();
+            
+            if(d == null) return false;
+            else return true;
+        }
+
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] Neighbohoods n)
         {
+
+            if(!verify(n.District)) return BadRequest(new {message = "Este bairro já existe!"});
+
+            var errors = ValidationModel.ValidationErrors(n);
+            foreach(var error in errors) return BadRequest(error);
+
             dc.neighbohoods.Add(n);
             await dc.SaveChangesAsync();
             return Created("Objeto Bairro", n);

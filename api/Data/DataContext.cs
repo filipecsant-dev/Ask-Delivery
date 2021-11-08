@@ -14,6 +14,7 @@ namespace api.Data
         public DbSet<RequestList> requestlist { get; set; }
         public DbSet<Menu> menu { get; set; }
         public DbSet<Neighbohoods> neighbohoods { get; set; }
+        public DbSet<Coupon> coupon { get; set; }
 
     }
 }
